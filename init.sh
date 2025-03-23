@@ -131,17 +131,22 @@ cat > tsconfig.json << EOF
 EOF
 
 echo -e "${GREEN}✅ Installing and configuring ESLint${NC}"
-npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-standard-with-typescript
+npm install --save-dev eslint @eslint/js@9 @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-love
 
 cat > eslint.config.js << EOF
 import globals from 'globals'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import love from 'eslint-config-love'
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ['**/*.{js,mjs,cjs,ts}'] },
-  { languageOptions: { globals: globals.node } },
+  {
+    ...love, 
+    files: ['**/*.{js,mjs,cjs,ts}']
+  },
+  {
+    languageOptions: { globals: globals.node }
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
 ]
