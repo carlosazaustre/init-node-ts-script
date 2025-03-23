@@ -1,4 +1,5 @@
 project/
+test.sh
 .vscode
 .idea
 *.log

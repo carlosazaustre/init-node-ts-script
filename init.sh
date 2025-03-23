@@ -1,4 +1,8 @@
 #!/bin/bash
+# This script initializes a Node.js project with TypeScript, ESLint, Prettier, and Husky.
+# It sets up a basic project structure, installs necessary dependencies, and configures Git and GitHub Actions.
+# Check if the script is run from the root directory of the project
+
 
 # Colors for messages
 GREEN='\033[0;32m'
@@ -269,9 +273,6 @@ echo -e "${GREEN}✅ Setting up Husky${NC}"
 # Inicializar husky con el nuevo comando
 npx husky init
 
-# Actualizar el script prepare (ya lo hace husky init, pero por si acaso)
-npm pkg set scripts.prepare="husky"
-
 # Crear los hooks manualmente
 echo "npm run lint" > .husky/pre-commit
 echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
@@ -287,12 +288,15 @@ npm pkg set scripts.start="node dist/index.js"
 npm pkg set scripts.build="rimraf dist && pkgroll --minify"
 npm pkg set scripts.lint="eslint . --ext .ts"
 npm pkg set scripts.test="echo \"Error: no test specified\" && exit 1"
-npm pkg set scripts="prepare=husky install"
+npm pkg set scripts.prepare="husky install"
 npm pkg set type="module"
 npm pkg set engines.node=">=22.0.0"
 npm pkg set exports="./dist/index.js"
 npm pkg set private=true
+npm pkg set license="MIT"
+npm pkg set author="$GIT_NAME <$GIT_EMAIL>"
+npm pkg set repository.type="git"
 
-echo -e "${BLUE}🎉 Project setup completed successfully!${NC}"
-echo -e "${BLUE}📝 You can start developing with:${NC}"
-echo -e "${GREEN}   npm run dev${NC}"
+echo "${BLUE}🎉 Project setup completed successfully!${NC}"
+echo "${BLUE}📝 You can start developing with:${NC}"
+echo "${GREEN}   npm run dev${NC}"
