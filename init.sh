@@ -126,7 +126,8 @@ cat > tsconfig.json << EOF
     "noEmit": false,
     "types": ["node", "jest"],
     "verbatimModuleSyntax": false,
-    "incremental": true
+    "incremental": true,
+    "allowJs": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
