@@ -261,10 +261,19 @@ echo -e "${GREEN}✅ Installing dotenv${NC}"
 npm install dotenv
 
 echo -e "${GREEN}✅ Setting up Husky${NC}"
-npx husky install
-npm pkg set scripts.prepare="husky install"
-npx husky add .husky/pre-commit "npx lint-staged"
-npx husky add .husky/commit-msg "npx --no -- commitlint --edit \$1"
+# Inicializar husky con el nuevo comando
+npx husky init
+
+# Actualizar el script prepare (ya lo hace husky init, pero por si acaso)
+npm pkg set scripts.prepare="husky"
+
+# Crear los hooks manualmente
+echo "npm run lint" > .husky/pre-commit
+echo "npx --no -- commitlint --edit \$1" > .husky/commit-msg
+echo "npm run test" > .husky/pre-push
+
+# Dar permisos de ejecución a los hooks
+chmod +x .husky/pre-commit .husky/commit-msg .husky/pre-push
 
 echo -e "${GREEN}✅ Configuring npm scripts${NC}"
 npm install rimraf -D
