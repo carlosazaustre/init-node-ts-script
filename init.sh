@@ -276,7 +276,7 @@ echo "npm run test" > .husky/pre-push
 chmod +x .husky/pre-commit .husky/commit-msg .husky/pre-push
 
 echo -e "${GREEN}✅ Configuring npm scripts${NC}"
-npm install rimraf -D
+npm install rimraf@4 -D
 npm pkg set scripts.dev="tsx watch src/index.ts"
 npm pkg set scripts.start="node dist/index.js"
 npm pkg set scripts.build="rimraf dist && pkgroll --minify"
