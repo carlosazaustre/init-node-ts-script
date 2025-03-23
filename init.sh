@@ -105,12 +105,12 @@ SOFTWARE.
 EOF
 
 echo -e "${GREEN}✅ Installing TypeScript dependencies${NC}"
-npm install --save-dev typescript tsx pkgroll @types/node
+npm install --save-dev typescript tsx pkgroll @types/node @types/jest
 
 echo -e "${GREEN}✅ Creating tsconfig.json${NC}"
 cat > tsconfig.json << EOF
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
+  "\$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
@@ -126,7 +126,8 @@ cat > tsconfig.json << EOF
     "noEmit": false,
     "types": ["node", "jest"],
     "verbatimModuleSyntax": false,
-    "incremental": true
+    "incremental": true,
+    "allowJs": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
@@ -286,7 +287,7 @@ npm install rimraf@4 -D
 npm pkg set scripts.dev="tsx watch src/index.ts"
 npm pkg set scripts.start="node dist/index.js"
 npm pkg set scripts.build="rimraf dist && pkgroll --minify"
-npm pkg set scripts.lint="eslint . --ext .ts"
+npm pkg set scripts.lint="eslint . --ext .ts ./src"
 npm pkg set scripts.test="echo \"Error: no test specified\" && exit 1"
 npm pkg set scripts.prepare="husky install"
 npm pkg set type="module"
